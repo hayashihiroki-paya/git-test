@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git / GitHub 基本操作チートシート</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Yu Gothic", "Meiryo", sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            background: #f5f7fb;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: #24292e;
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            border-left: 6px solid #2ea44f;
+            background: white;
+            padding: 12px 16px;
+            margin-top: 60px;
+            border-radius: 8px;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: #0366d6;
+        }
+
+        section {
+            background: white;
+            padding: 25px;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        pre {
+            background: #24292e;
+            color: #f8f8f2;
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 8px;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        .toc {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 10px;
+        }
+
+        .toc a {
+            text-decoration: none;
+            color: #0366d6;
+        }
+
+        .flow {
+            background: #f3fdf5;
+            border-left: 5px solid #2ea44f;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .important {
+            background: #fff6dd;
+            border-left: 5px solid #f9c513;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        footer {
+            text-align: center;
+            margin: 50px 0;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Git / GitHub 基本操作チートシート</h1>
+        <p>初学者向け Git・GitHub 入門ガイド</p>
+    </header>
+
+    <div class="toc">
+        <h2>目次</h2>
+        <ul>
+            <li><a href="#purpose">この資料の目的</a></li>
+            <li><a href="#concept">Gitの基本概念</a></li>
+            <li><a href="#basic">基本コマンド</a></li>
+            <li><a href="#clone">プロジェクト取得</a></li>
+            <li><a href="#branch">ブランチ操作</a></li>
+            <li><a href="#workflow">開発フロー</a></li>
+            <li><a href="#pr">Pull Request</a></li>
+            <li><a href="#merge">マージ後の作業</a></li>
+            <li><a href="#summary">最重要フローまとめ</a></li>
+        </ul>
+    </div>
+
+    <section id="purpose">
+        <h2>この資料の目的</h2>
+
+        <p>
+            GitHub を利用した開発において、
+            初学者が最初に覚えるべきGit操作をまとめています。
+        </p>
+
+        <div class="flow">
+<pre><code>main ブランチから作業ブランチを作成
+↓
+開発
+↓
+コミット
+↓
+GitHubへPush
+↓
+Pull Request作成
+↓
+レビュー
+↓
+mainへマージ</code></pre>
+        </div>
+    </section>
+
+    <section id="concept">
+        <h2>Gitの基本概念</h2>
+
+<pre><code>作業フォルダ
+↓
+ステージングエリア
+↓
+ローカルリポジトリ
+↓
+リモートリポジトリ(GitHub)</code></pre>
+
+        <h3>作業フォルダ</h3>
+        <p>ソースコードを編集する場所です。</p>
+
+        <h3>ステージングエリア</h3>
+        <p>次のコミットに含める変更を選択する場所です。</p>
+
+<pre><code>git add .</code></pre>
+
+        <h3>ローカルリポジトリ</h3>
+        <p>自分のPC内に保存されるGit履歴です。</p>
+
+<pre><code>git commit -m "ログイン機能を追加"</code></pre>
+
+        <h3>リモートリポジトリ</h3>
+        <p>GitHub上のリポジトリです。</p>
+
+<pre><code>git push</code></pre>
+
+    </section>
+
+    <section id="basic">
+        <h2>まず覚えるべきGitコマンド</h2>
+
+        <h3>状態確認</h3>
+
+<pre><code>git status</code></pre>
+
+        <p>変更されたファイルや現在のブランチを確認できます。</p>
+
+        <h3>変更をステージング</h3>
+
+<pre><code>git add .</code></pre>
+
+        <p>変更された全ファイルを追加します。</p>
+
+<pre><code>git add Program.cs</code></pre>
+
+        <p>特定ファイルのみ追加します。</p>
+
+        <h3>コミット</h3>
+
+<pre><code>git commit -m "ログイン処理を追加"</code></pre>
+
+        <h3>Push</h3>
+
+<pre><code>git push</code></pre>
+
+        <h3>Pull</h3>
+
+<pre><code>git pull</code></pre>
+
+    </section>
+
+    <section id="clone">
+        <h2>プロジェクト取得</h2>
+
+<pre><code>git clone https://github.com/user/sample-app.git</code></pre>
+
+        <p>GitHub上のプロジェクトをローカルへ取得します。</p>
+
+<pre><code>cd sample-app</code></pre>
+
+    </section>
+
+    <section id="branch">
+        <h2>ブランチ操作</h2>
+
+        <p>mainを直接編集せず、作業ブランチで開発します。</p>
+
+<pre><code>main
+ └─ feature/login</code></pre>
+
+        <h3>現在のブランチ確認</h3>
+
+<pre><code>git branch</code></pre>
+
+        <h3>ブランチ作成と移動</h3>
+
+<pre><code>git switch -c feature/login</code></pre>
+
+        <h3>ブランチ切り替え</h3>
+
+<pre><code>git switch main</code></pre>
+
+    </section>
+
+    <section id="workflow">
+        <h2>初学者向け開発フロー</h2>
+
+        <h3>① mainを最新化</h3>
+
+<pre><code>git switch main
+git pull</code></pre>
+
+        <h3>② 作業ブランチ作成</h3>
+
+<pre><code>git switch -c feature/login</code></pre>
+
+        <h3>③ 開発</h3>
+
+        <p>ソースコードを修正します。</p>
+
+        <h3>④ 状態確認</h3>
+
+<pre><code>git status</code></pre>
+
+        <h3>⑤ ステージング</h3>
+
+<pre><code>git add .</code></pre>
+
+        <h3>⑥ コミット</h3>
+
+<pre><code>git commit -m "ログイン機能を追加"</code></pre>
+
+        <h3>⑦ GitHubへPush</h3>
+
+<pre><code>git push -u origin feature/login</code></pre>
+
+        <div class="important">
+            初回のみ <strong>-u</strong> オプションを付けることで、
+            以降は <code>git push</code> だけでPushできます。
+        </div>
+
+    </section>
+
+    <section id="pr">
+        <h2>Pull Request（PR）とは</h2>
+
+        <p>
+            「この変更を main に取り込んでください」
+            と依頼するための仕組みです。
+        </p>
+
+<pre><code>main
+ ↓
+feature/login
+ ↓
+開発
+ ↓
+commit
+ ↓
+push
+ ↓
+Pull Request
+ ↓
+レビュー
+ ↓
+マージ</code></pre>
+
+        <h3>PR作成手順</h3>
+
+        <ol>
+            <li>GitHubへPush</li>
+            <li>Compare & Pull Request をクリック</li>
+            <li>タイトル入力</li>
+            <li>説明入力</li>
+            <li>Create Pull Request</li>
+            <li>レビュー依頼</li>
+        </ol>
+
+    </section>
+
+    <section id="merge">
+        <h2>マージ後の作業</h2>
+
+        <h3>mainを最新化</h3>
+
+<pre><code>git switch main
+git pull</code></pre>
+
+        <h3>不要ブランチ削除</h3>
+
+<pre><code>git branch -d feature/login</code></pre>
+
+    </section>
+
+    <section id="summary">
+        <h2>最重要フローまとめ</h2>
+
+        <div class="important">
+            最初はこの流れだけ覚えれば十分です。
+        </div>
+
+<pre><code># mainを最新化
+git switch main
+git pull
+
+# 作業ブランチ作成
+git switch -c feature/sample
+
+# 開発後
+git add .
+git commit -m "機能追加"
+
+# GitHubへ送信
+git push -u origin feature/sample
+
+# GitHubでPR作成
+# レビュー
+# マージ
+
+# 作業終了後
+git switch main
+git pull
+git branch -d feature/sample</code></pre>
+
+    </section>
+
+    <footer>
+        Git / GitHub 初学者向けチートシート
+    </footer>
+
+</div>
+
+</body>
+</html>
